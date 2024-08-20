@@ -7,7 +7,7 @@ const ResumeTemplate = ({ resumeData = {} }) => {
 
   const generatePDF = () => {
     if (!resumeRef.current) return;
-  
+
     const button = document.getElementById('download-btn');
     if (button) button.style.display = 'none'; // Hide the button
 
@@ -22,29 +22,26 @@ const ResumeTemplate = ({ resumeData = {} }) => {
       const pageHeight = 295; // A4 height in mm
       const imgHeight = canvas.height * imgWidth / canvas.width;
       let heightLeft = imgHeight;
-  
+
       let position = 0;
-  
+
       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
-  
+
       while (heightLeft >= 0) {
         position = heightLeft - imgHeight;
         pdf.addPage();
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-  
+
       pdf.save('resume.pdf');
-  
-      // Reset the background color to its original value
-      // resumeRef.current.style.backgroundColor = originalBackgroundColor;
-  
+
       // Show the button again
       if (button) button.style.display = 'block';
     });
   };
-  
+
   const {
     name = '',
     objective = '',
@@ -54,29 +51,21 @@ const ResumeTemplate = ({ resumeData = {} }) => {
   } = resumeData;
 
   return (
-  
     <div className='bg-white'>
-      <div id="resume-template" ref={resumeRef} className="p-5 bg-white rounded-sm ">
-
+      <div id="resume-template" ref={resumeRef} className="p-5 bg-white rounded-sm">
         <hr className='border-t-4 border-blue-950 mt-1.5 mb-8' />
         <div className="border-b-2 border-dark-blue pb-2 mb-5 flex justify-between">
           <p className="text-3xl font-semibold text-dark-blue mb-4 text-center mt-24 bg-transparent">{name}</p>
-          
-          <img src='/adixo.jpg' width="120px " height="150px" className=' pb-12'/>
-
-
-         
+          <img src='/adixo.jpg' width="120px" height="150px" className='pb-12' />
         </div>
 
         <div className="mb-6">
           <p className="text-lg font-semibold underline">OBJECTIVE :</p>
-          {/* <hr className="my-2 border-dark-blue" /> */}
           <p>{objective}</p>
         </div>
 
         <div className="mb-6">
           <p className="text-lg font-semibold underline">PROFESSIONAL EXPERIENCE :</p>
-          {/* <hr className="my-2 border-dark-blue" /> */}
           <ul className="list-disc pl-5">
             {experience.map((exp, index) => (
               <li key={index} className="mb-4">
@@ -90,7 +79,6 @@ const ResumeTemplate = ({ resumeData = {} }) => {
 
         <div className="mb-6">
           <p className="text-lg font-semibold underline">PROJECTS :</p>
-          {/* <hr className="my-2 border-dark-blue" /> */}
           <ul className="list-disc pl-5">
             {projects.map((project, index) => (
               <li key={index} className="mb-4">
@@ -105,7 +93,6 @@ const ResumeTemplate = ({ resumeData = {} }) => {
 
         <div className="mb-6">
           <p className="text-lg font-semibold underline">EDUCATION :</p>
-          {/* <hr className="my-2 border-dark-blue" /> */}
           <ul className="list-disc pl-5">
             {education.map((edu, index) => (
               <li key={index} className="mb-4 flex px-2">

@@ -69,12 +69,22 @@ function App() {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/api/submit-resume', formData);
-            setResumeData(response.data.data);
+            if (response.status === 200) {
+                setResumeData(formData); // Update resumeData with formData after successful submission
+            }
         } catch (error) {
             console.error('Error submitting resume:', error);
         }
     };
 
+    const handleGenerateAgain = () => {
+        setResumeData(formData); // Reset resumeData to current formData to reflect changes
+        setChangesReflected(false); // Reset the changes reflected state
+    };
+    // const handleGenerateAgain = () => {
+    //     setResumeData(formData); // Reset resumeData to current formData to reflect changes
+    //     setChangesReflected(false); // Reset the changes reflected state
+    // };
     return (
         <div className="App bg-green-700">
             <h1>Resume Builder</h1>
@@ -219,8 +229,8 @@ function App() {
                 <div className="button-group">
                     <button type="submit" className="custom-button">Generate Resume</button>
 
-                    <button type="button" className="custom-button ml-2">
-                        {changesReflected ? 'Do again Genrate Resume' : 'No Changes'}
+                    <button type="button" className="custom-button ml-2" onClick={handleGenerateAgain}>
+                        {changesReflected ? 'Do again Generate Resume' : 'No Changes'}
                     </button>
                 </div>
             </form>
