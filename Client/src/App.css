@@ -9,7 +9,7 @@ body {
   width: 50%;
   margin: 50px auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -54,4 +54,32 @@ button[type="button"] {
 button[type="submit"] {
   margin-top: 20px;
   width: 100%;
+}
+
+div {
+  background-color: inherit;
+}
+.button-group {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  justify-content: start;
+}
+
+.custom-button {
+  background-color: #007bff; /* Green background */
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: #007bff; /* Darker green on hover */
+}
+
+.ml-2 {
+  margin-left: 10px; /* Additional margin to separate buttons */
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 import ResumeTemplate from './ResumeTemplate';
@@ -13,6 +13,15 @@ function App() {
     });
 
     const [resumeData, setResumeData] = useState(null);
+    const [changesReflected, setChangesReflected] = useState(false);
+
+    useEffect(() => {
+        if (resumeData && JSON.stringify(formData) !== JSON.stringify(resumeData)) {
+            setChangesReflected(true);
+        } else {
+            setChangesReflected(false);
+        }
+    }, [formData, resumeData]);
 
     const handleChange = (index, e, fieldName, section = null) => {
         const { value } = e.target;
@@ -67,7 +76,7 @@ function App() {
     };
 
     return (
-        <div className="App">
+        <div className="App bg-green-700">
             <h1>Resume Builder</h1>
             <form onSubmit={handleSubmit}>
                 <div className="section">
@@ -207,7 +216,13 @@ function App() {
                     <button type="button" onClick={() => addArrayField('education')}>Add Education</button>
                 </div>
 
-                <button type="submit">Generate Resume</button>
+                <div className="button-group">
+                    <button type="submit" className="custom-button">Generate Resume</button>
+
+                    <button type="button" className="custom-button ml-2">
+                        {changesReflected ? 'Do again Genrate Resume' : 'No Changes'}
+                    </button>
+                </div>
             </form>
 
             {resumeData && <ResumeTemplate resumeData={resumeData} />}
